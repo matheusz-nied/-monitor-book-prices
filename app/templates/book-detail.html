@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="mb-5" style="display: flex ;justify-content: center; flex-direction: column; align-items: center;">
+    <div id="about-app" class="container my-5">
+      <h2 class="text-center">Editing: {{ book.name }}</h2>
+    </div>
+
+    <div class="mt-5" style="max-width: 80%; display: flex ;justify-content: center; flex-direction: column; align-items: center;">
+      <form method="post">
+        <div class="input-group">
+          <span class="input-group-text" id="basic-addon1">URL Book</span>
+          <input type="text" name="url" placeholder="Book url" class="form-control" value="{{ request.form.url or book.url }}" />
+        </div>
+        <div class="input-group mt-4">
+          <span class="input-group-text" id="basic-addon1">Secret Key <span class="mx-1"></span><i class="fa-solid fa-key"></i></span>
+          <input type="password" name="secret-key" placeholder="**********" class="form-control" />
+        </div>
+        <div class="form-group d-flex justify-content-end mt-3">
+          <button type="button" class="btn rounded-1 fw-medium ms-3 text-danger" style="border: red solid 2px;" onclick="submitDeleteForm()">Delete Book</button>
+
+          <button type="submit" class="btn rounded-1 fw-medium ms-3" style="border: #1a1a1d solid 1px;">Edit Book</button>
+        </div>
+      </form>
+      <hr />
+    </div>
+  </div>
+  <script>
+    function submitDeleteForm() {
+      var secret_key = document.getElementsByName('secret-key')[0].value
+    
+      fetch('/book/delete/{{ book.id }}', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ secret_key: secret_key })
+      })
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(errorData => { 
+            alert(`Error: ${errorData.message || 'Unauthorized user!'}`);
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Network error:', error);
+      });
+    }
+  </script>
+{% endblock %}

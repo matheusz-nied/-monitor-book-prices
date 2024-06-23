@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div id="about-app" class="container" style="margin-top: 7rem;margin-bottom: 5rem;">
+    <h1 class="text-center mb-4">About this app</h1>
+    <p class="fs-5">My favorite hobby is reading. So I built this app to help me.<br/>This page is just for you to take a look at the books I'm keeping an eye on.
+      </p>
+
+    <p class="fs-5">
+      Powered by web scraping and notification technology, this app continuously monitors selected books for significant price changes.
+       When a book meets your criteria, it sends me an instant email notification.       
+    <br/>
+       Built with <span class="fw-semibold">Python</span>, <span class="fw-semibold">Flask</span>, <span class="fw-semibold">email</span>,
+        <span class="fw-semibold">threads</span>, <span class="fw-semibold">Docker</span>, <span class="fw-semibold">Web Scraping</span> and <span class="fw-semibold">Selenium</span>,
+        this app ensures smooth and responsive performance.</p>
+  </div>
+  <div id="container-books"class="">
+
+      {% for book in books %}
+      {% include 'book.html' %}
+    
+      {% endfor %}
+  </div>
+{% endblock %}

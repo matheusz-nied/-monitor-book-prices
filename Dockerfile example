@@ -1,0 +1,57 @@
+# Use a imagem base do Python 3.10 slim
+FROM ubuntu:latest
+
+# Atualizar e instalar pacotes necessários
+RUN apt-get update && apt-get install -y \
+    gnupg wget unzip curl python3 python3-pip python3-venv\
+    && wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list \
+    && apt-get update -y \
+    && apt-get install -y google-chrome-stable
+
+# Verificar a versão instalada do Google Chrome (opcional)
+RUN google-chrome --version
+
+# Remover o chromedriver se já estiver instalado para evitar conflitos
+RUN which chromedriver && rm $(which chromedriver) || true
+
+# Criar o diretório /usr/local/bin se não existir
+RUN mkdir -p /usr/local/bin
+
+# Definir o diretório de trabalho para /usr/local/bin
+WORKDIR /usr/local/bin
+
+# Baixar e instalar a versão recomendada do Chromedriver para o Chrome 126.*
+RUN CHROMEDRIVER_VERSION=126.0.6478.63 \
+    && wget -q "https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.114/linux64/chromedriver-linux64.zip" \
+    && unzip chromedriver-linux64.zip \
+    && mv chromedriver-linux64/chromedriver . \
+    && chmod +x chromedriver \
+    && rm chromedriver-linux64.zip
+
+# Definir diretório de trabalho
+WORKDIR /monitor-books
+# Criar um ambiente virtual
+RUN python3 -m venv /venv
+
+# Ativar o ambiente virtual
+ENV PATH="/venv/bin:$PATH"
+# Definir variáveis de ambiente (se necessário)
+ENV SECRET_KEY=
+ENV FLASK_APP=app.py
+ENV EMAIL_REMETENTE=
+ENV EMAIL_DESTINATARIO=
+ENV PASSWORD_GENERATED=
+
+# Instalar dependências do Python
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
+
+# Copiar arquivos do projeto
+COPY . .
+
+# Definir diretório de trabalho para a aplicação
+WORKDIR /monitor-books/app
+
+# Iniciar a aplicação Flask
+CMD ["python3", "-m", "flask", "run", "--host=0.0.0.0"]

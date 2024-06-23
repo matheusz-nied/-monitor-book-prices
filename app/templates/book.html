@@ -1,0 +1,58 @@
+{% block content %}
+{% if not book.url_image  %}
+<div class="card card-medium mt-5" >
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{ url_for('static', filename='images/image-not.png')}}" class="card-img-top" alt="{{ book.name }}" style="height: fit-content; max-height: 20rem;object-fit: cover; border-radius: 0;" />
+    </div>
+    <div class="col-md-8">
+      <div class="card-body" style="display: flex;flex-direction: column; justify-content: space-between;">
+        <div>
+          <h5 class="text-start">Book not scraping yet</h5>
+          <p class="card-text text-start text-dark-emphasis">??</p>
+          <div class="text-start">
+            <p class="">
+              Preço: <span class="fw-medium fs-5 text"> R$ ??.??</span>
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="text-end mb-3">
+            <a href="{{ url_for('book', book_id=book.id) }}" class="btn rounded-1 fw-semibold" disabled
+             style="border: #1a1a1d solid 1px;position: absolute;bottom: 10px;right: 10px; ">Don't click</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <div class="card card-medium mt-5" >
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{ book.url_image }}" class="card-img-top" alt="{{ book.name }}" style="height: fit-content; max-height: 20rem;object-fit: cover; border-radius: 0;" />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body" style="display: flex;flex-direction: column; justify-content: space-between;">
+          <div>
+            <h5 class="text-start">{{ book.name }}</h5>
+            <p class="card-text text-start text-dark-emphasis">{{ book.author }}</p>
+            <div class="text-start">
+              <p class="">
+                Preço: <span class="fw-medium fs-5 text"> R$ {{ book.price }}</span>
+              </p>
+            </div>
+          </div>
+          <div>
+            <div class="text-end mb-3">
+              <a href="{{ url_for('book', book_id=book.id) }}" class="btn rounded-1 fw-semibold"
+               style="border: #1a1a1d solid 1px;position: absolute;bottom: 10px;right: 10px; ">Take a look</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+
+{% endblock %}

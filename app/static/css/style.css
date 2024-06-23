@@ -1,0 +1,43 @@
+:root {
+    --main-bg-color:aliceblue ;
+    --sub-color: #1a1a1d;
+    --tertirary-color: #14a76c;
+    --secondary-color: #03C303;
+    --primary-color: rgb(58,245,37);
+  }
+
+
+  body {
+    background-color: var(--main-bg-color);
+    color: var(--sub-color);
+
+  }
+  #container-books {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+  }
+
+  .card {
+    background-color: var(--main-bg-color);
+    color: var(--sub-color);
+    border: var(--sub-color) solid 1px;
+    box-shadow:  0 0 3px var(--sub-color);
+    height: 14rem; width: 30rem; overflow: hidden;
+    
+  }
+
+    #about-app {
+    
+      padding-right: 1rem;
+      padding-left: 1rem;
+    }
+
+  @media (min-width: 780px) {
+    #about-app {
+    
+      padding-right: 11rem;
+      padding-left: 11rem;
+    }
+  }

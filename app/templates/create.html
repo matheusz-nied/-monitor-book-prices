@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Monitor a New Book {% endblock %}</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="url">Url</label>
+        <input type="text" name="url"
+               placeholder="Book url" class="form-control"
+               value="{{ request.form['url'] }}"></input>
+
+    </div>
+    <div class="input-group mt-4">
+        <span class="input-group-text" id="basic-addon1">Secret Key <span class="mx-1"></span><i class="fa-solid fa-key"></i></span>
+        <input type="password" name="secret-key" placeholder="**********" class="form-control"  />
+    </div>
+    <div class="form-group mt-4 text-end">
+        <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+</form>
+{% endblock %}
