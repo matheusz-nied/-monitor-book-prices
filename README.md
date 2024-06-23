@@ -5,6 +5,13 @@ My favorite hobby is reading. So I built this app to help me.
 Powered by web scraping and notification technology, this app continuously monitors selected books for significant price changes. When a book meets your criteria, it sends me an instant email notification.
 Built with Python, Flask, email, threads, Docker, Web Scraping and Selenium, this app ensures smooth and responsive performance.
 
+## Images
+
+<p align="center">
+<img src="public/image.png" alt="App video" width=300>     
+</p>
+
+
 ## Features
 
 - **Add Books**: Users can add books to the monitoring list by providing the URL of the book from an online retailer.
