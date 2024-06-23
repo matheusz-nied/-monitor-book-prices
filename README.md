@@ -8,7 +8,7 @@ Built with Python, Flask, email, threads, Docker, Web Scraping and Selenium, thi
 ## Images
 
 <p align="center">
-<img src="public/image.png" alt="App image">     
+<img src="public/home.png" alt="App image">     
 </p>
 
 
